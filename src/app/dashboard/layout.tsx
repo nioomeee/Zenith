@@ -54,7 +54,7 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="p-6">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              AlumniSphere
+              Zenith
             </h1>
           </div>
 

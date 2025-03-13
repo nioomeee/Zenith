@@ -1,23 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { LuBriefcase, LuGraduationCap, LuMapPin } from 'react-icons/lu';
 import { MatchScore, MatchWeights, DEFAULT_WEIGHTS } from '@/types/matching';
 
 interface MatchCardProps {
-  match: MatchScore & {
+  match: {
+    userId: string;
+    score: number;
     profile: {
       firstName: string;
       lastName: string;
       profileImage: string | null;
       major: string;
       graduationYear: number;
-      currentRole: string;
-      company: string;
+      currentRole: string | null;
+      company: string | null;
       location: string;
     };
+    explanation: string[];
   };
 }
 
@@ -50,12 +53,14 @@ function MatchCard({ match }: MatchCardProps) {
             <h3 className="text-lg font-semibold">
               {match.profile.firstName} {match.profile.lastName}
             </h3>
-            <div className="flex items-center gap-2 text-sm text-gray-400">
-              <LuBriefcase className="flex-shrink-0" />
-              <span>
-                {match.profile.currentRole} at {match.profile.company}
-              </span>
-            </div>
+            {match.profile.currentRole && match.profile.company && (
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <LuBriefcase className="flex-shrink-0" />
+                <span>
+                  {match.profile.currentRole} at {match.profile.company}
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <LuGraduationCap className="flex-shrink-0" />
               <span>
@@ -101,21 +106,34 @@ function MatchCard({ match }: MatchCardProps) {
 export default function MatchesPage() {
   const [matches, setMatches] = useState<MatchCardProps['match'][]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [weights, setWeights] = useState<MatchWeights>(DEFAULT_WEIGHTS);
 
-  // Fetch matches when component mounts
-  useState(() => {
-    fetch('/api/matching/matches')
-      .then((res) => res.json())
-      .then((data) => {
-        setMatches(data.matches);
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const res = await fetch('/api/matching/matches', {
+          headers: {
+            'X-User-Id': 'student_1',
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Failed to fetch matches');
+        }
+        const data = await res.json();
+        setMatches(data.matches || []);
+      } catch (err) {
+        console.error('Error fetching matches:', err);
+        setError('Failed to load matches. Please try again later.');
+      } finally {
         setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching matches:', error);
-        setIsLoading(false);
-      });
-  });
+      }
+    };
+
+    fetchMatches();
+  }, []);
 
   return (
     <div>
@@ -126,6 +144,12 @@ export default function MatchesPage() {
           Connect with alumni who share your interests and career goals
         </p>
       </div>
+
+      {error && (
+        <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400">
+          {error}
+        </div>
+      )}
 
       {/* Filters */}
       <div className="mb-8 p-6 bg-gray-800/30 rounded-xl border border-gray-700">
@@ -165,6 +189,10 @@ export default function MatchesPage() {
               className="bg-gray-800/50 rounded-xl h-64 animate-pulse"
             />
           ))}
+        </div>
+      ) : matches.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-gray-400">No matches found.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -6,7 +6,9 @@ import {
   integer,
   primaryKey,
   boolean,
+  type PgTableWithColumns,
 } from 'drizzle-orm/pg-core';
+import { relations, type InferModel, type RelationConfig } from 'drizzle-orm';
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(), // Clerk user ID
@@ -143,5 +145,145 @@ export const userUniversityGroups = pgTable(
   },
   (table) => ({
     pk: primaryKey({ columns: [table.userId, table.groupId] }),
+  })
+);
+
+// Define types
+export type User = InferModel<typeof users>;
+export type Interest = InferModel<typeof interests>;
+export type CareerPath = InferModel<typeof careerPaths>;
+export type MentorshipArea = InferModel<typeof mentorshipAreas>;
+export type UniversityGroup = InferModel<typeof universityGroups>;
+
+// Define relations
+export const usersRelations = relations(users, ({ many }) => ({
+  interests: many(userInterests, {
+    fields: [users.id],
+    references: [userInterests.userId],
+  }),
+  careerPaths: many(userCareerPaths, {
+    fields: [users.id],
+    references: [userCareerPaths.userId],
+  }),
+  mentorshipOfferings: many(mentorshipOfferings, {
+    fields: [users.id],
+    references: [mentorshipOfferings.userId],
+  }),
+  mentorshipNeeds: many(mentorshipNeeds, {
+    fields: [users.id],
+    references: [mentorshipNeeds.userId],
+  }),
+  universityGroups: many(userUniversityGroups, {
+    fields: [users.id],
+    references: [userUniversityGroups.userId],
+  }),
+}));
+
+export const interestsRelations = relations(interests, ({ many }) => ({
+  users: many(userInterests, {
+    fields: [interests.id],
+    references: [userInterests.interestId],
+  }),
+}));
+
+export const careerPathsRelations = relations(careerPaths, ({ many, one }) => ({
+  users: many(userCareerPaths, {
+    fields: [careerPaths.id],
+    references: [userCareerPaths.careerPathId],
+  }),
+  parent: one(careerPaths, {
+    fields: [careerPaths.parentId],
+    references: [careerPaths.id],
+  }),
+}));
+
+export const mentorshipAreasRelations = relations(
+  mentorshipAreas,
+  ({ many }) => ({
+    offerings: many(mentorshipOfferings, {
+      fields: [mentorshipAreas.id],
+      references: [mentorshipOfferings.areaId],
+    }),
+    needs: many(mentorshipNeeds, {
+      fields: [mentorshipAreas.id],
+      references: [mentorshipNeeds.areaId],
+    }),
+  })
+);
+
+export const universityGroupsRelations = relations(
+  universityGroups,
+  ({ many }) => ({
+    users: many(userUniversityGroups, {
+      fields: [universityGroups.id],
+      references: [userUniversityGroups.groupId],
+    }),
+  })
+);
+
+export const userInterestsRelations = relations(userInterests, ({ one }) => ({
+  user: one(users, {
+    fields: [userInterests.userId],
+    references: [users.id],
+  }),
+  interest: one(interests, {
+    fields: [userInterests.interestId],
+    references: [interests.id],
+  }),
+}));
+
+export const userCareerPathsRelations = relations(
+  userCareerPaths,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userCareerPaths.userId],
+      references: [users.id],
+    }),
+    careerPath: one(careerPaths, {
+      fields: [userCareerPaths.careerPathId],
+      references: [careerPaths.id],
+    }),
+  })
+);
+
+export const mentorshipOfferingsRelations = relations(
+  mentorshipOfferings,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [mentorshipOfferings.userId],
+      references: [users.id],
+    }),
+    area: one(mentorshipAreas, {
+      fields: [mentorshipOfferings.areaId],
+      references: [mentorshipAreas.id],
+    }),
+  })
+);
+
+export const mentorshipNeedsRelations = relations(
+  mentorshipNeeds,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [mentorshipNeeds.userId],
+      references: [users.id],
+    }),
+    area: one(mentorshipAreas, {
+      fields: [mentorshipNeeds.areaId],
+      references: [mentorshipAreas.id],
+    }),
+  })
+);
+
+export const userUniversityGroupsRelations = relations(
+  userUniversityGroups,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userUniversityGroups.userId],
+      references: [users.id],
+    }),
+    group: one(universityGroups, {
+      fields: [userUniversityGroups.groupId],
+      references: [universityGroups.id],
+    }),
   })
 );
