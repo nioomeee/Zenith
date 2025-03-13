@@ -212,9 +212,11 @@ export default function HeroSection() {
                 animate="visible"
                 variants={buttonVariants}
               >
-                <Button className="relative overflow-hidden border-4 border-[#121212] bg-[#c4ff0e] px-8 py-6 font-sans text-xl font-bold text-[#121212] transition-all duration-300 hover:bg-[#a6d800] hover:translate-x-1 hover:translate-y-1 hover:shadow-[0_0_0_4px_#121212]">
-                  JOIN NOW
-                </Button>
+                <Link href="/dashboard">
+                  <Button className="relative overflow-hidden border-4 border-[#121212] bg-[#c4ff0e] px-8 py-6 font-sans text-xl font-bold text-[#121212] transition-all duration-300 hover:bg-[#a6d800] hover:translate-x-1 hover:translate-y-1 hover:shadow-[0_0_0_4px_#121212]">
+                    JOIN NOW
+                  </Button>
+                </Link>
               </motion.div>
 
               <motion.div
