@@ -1,18 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   LuUsers,
   LuMessageSquare,
   LuCalendar,
   LuTrendingUp,
-  LuBriefcase,
-  LuGraduationCap,
   LuArrowRight,
-  LuBell,
 } from 'react-icons/lu';
 
 interface StatCardProps {

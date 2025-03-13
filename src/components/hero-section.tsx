@@ -14,6 +14,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/button';
 import { Users, BookOpen, Award, ArrowRight } from 'lucide-react';
+import hero_img from '@/../public/Hero-1.jpeg';
 import useScrollDirection from '@/hooks/use-scroll-direction';
 
 export default function HeroSection() {
@@ -23,7 +24,6 @@ export default function HeroSection() {
   const imageRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const scrollTextRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
   const scrollDirection = useScrollDirection();
   const [activeTab, setActiveTab] = useState(0);
   const [animatedPositions, setAnimatedPositions] = useState<
@@ -241,7 +241,7 @@ export default function HeroSection() {
               transition={{ type: 'spring', stiffness: 300, damping: 15 }}
             >
               <Image
-                src="/placeholder.svg?height=500&width=600"
+                src={hero_img}
                 alt="GLS Alumisphere Platform"
                 width={600}
                 height={500}

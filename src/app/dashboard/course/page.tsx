@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGraduationCap, FaUsers } from 'react-icons/fa';
+import { FaGraduationCap } from 'react-icons/fa';
 import { HiOutlineAcademicCap } from 'react-icons/hi';
 import { LuCalendarClock, LuRefreshCw } from 'react-icons/lu';
 import Image from 'next/image';

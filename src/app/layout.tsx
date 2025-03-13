@@ -8,10 +8,10 @@ import { ClerkProvider } from '@clerk/nextjs';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'GLS Alumisphere - Alumni Engagement Platform',
+  title: 'GLS Zenith - Alumni Engagement Platform',
   description:
     'Connect with GLS University alumni for mentorship, career development, and community building',
-  generator: 'v0.dev',
+  creator: 'Vinay Thakor',
 };
 
 export default function RootLayout({

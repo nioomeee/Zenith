@@ -9,7 +9,7 @@ import {
   LuMapPin,
   LuRefreshCw,
 } from 'react-icons/lu';
-import { MatchScore, MatchWeights, DEFAULT_WEIGHTS } from '@/types/matching';
+import { MatchWeights, DEFAULT_WEIGHTS } from '@/types/matching';
 
 interface MatchCardProps {
   match: {

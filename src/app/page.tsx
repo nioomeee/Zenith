@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import logo from '@/../public/logo.svg';
 import { Button } from '@/components/ui/button';
 import FeatureCarousel from '@/components/feature-carousel';
 import HeroSection from '@/components/hero-section';
@@ -9,12 +10,7 @@ import ScrollingText from '@/components/scrolling-text';
 import ParallaxSection from '@/components/parallax-section';
 import { SignUpButton } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from '@clerk/clerk-react';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 // Animation variants for buttons
 const buttonVariants = {
@@ -36,7 +32,7 @@ export default function Home() {
       <header className="fixed top-0 z-50 w-full border-b-4 border-[#121212] bg-[#f5f5f5] px-4 py-4">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 bg-[#121212]"></div>
+            <Image src={logo.src} alt="Zenith Logo" width={50} height={50} />
             <span className="font-sans text-xl font-extrabold text-[#121212]">
               Zenith
             </span>
@@ -103,7 +99,7 @@ export default function Home() {
               "
             </span>
             <p className="mt-8 font-sans text-xl text-[#f5f5f5]">
-              - PRIYA SHARMA, CLASS OF 2023
+              - MALIKA SHARMA, CLASS OF 2023
             </p>
           </div>
         </div>
