@@ -27,7 +27,6 @@ const app = new Hono().basePath('/api/matching');
 app.get('/matches', async (c) => {
   try {
     const userId = c.req.header('X-User-Id') as string;
-    console.log('DB object:', db);
     if (!userId)
       return c.json({ error: 'Unauthorized id not found' }, { status: 401 });
 

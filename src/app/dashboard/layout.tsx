@@ -11,14 +11,18 @@ import {
   LuSettings,
   LuMenu,
   LuX,
+  LuGraduationCap,
 } from 'react-icons/lu';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import logo from '@/../public/logo.svg';
 
 const sidebarItems = [
   { name: 'Overview', href: '/dashboard', icon: LuHouse },
   { name: 'Matches', href: '/dashboard/matches', icon: LuUsers },
+  { name: 'Courses', href: '/dashboard/course', icon: LuGraduationCap },
   { name: 'Messages', href: '/dashboard/messages', icon: LuMessageSquare },
   { name: 'Events', href: '/dashboard/events', icon: LuCalendar },
   { name: 'Settings', href: '/dashboard/settings', icon: LuSettings },
@@ -52,9 +56,10 @@ export default function DashboardLayout({
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="p-6">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Zenith
+          <div className="p-6 flex items-center flex-row">
+            <Image src={logo.src} alt="Zenith Logo" width={50} height={50} />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+              enith
             </h1>
           </div>
 
