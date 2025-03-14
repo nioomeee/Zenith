@@ -230,6 +230,39 @@ export const companyAlumni = pgTable(
   })
 );
 
+// Interest group discussions
+export const interestGroupPosts = pgTable('interest_group_posts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  interestId: text('interest_id')
+    .notNull()
+    .references(() => interests.id, { onDelete: 'cascade' }),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  content: text('content').notNull(),
+  parentId: uuid('parent_id').references((): any => interestGroupPosts.id),
+  likes: integer('likes').default(0),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Interest group post likes
+export const interestGroupPostLikes = pgTable(
+  'interest_group_post_likes',
+  {
+    postId: uuid('post_id')
+      .notNull()
+      .references(() => interestGroupPosts.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.postId, table.userId] }),
+  })
+);
+
 // Events table
 export const events = pgTable('events', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -289,6 +322,11 @@ export type Event = typeof events.$inferSelect;
 export type NewEvent = typeof events.$inferInsert;
 export type EventRsvp = typeof eventRsvps.$inferSelect;
 export type NewEventRsvp = typeof eventRsvps.$inferInsert;
+export type InterestGroupPost = typeof interestGroupPosts.$inferSelect;
+export type NewInterestGroupPost = typeof interestGroupPosts.$inferInsert;
+export type InterestGroupPostLike = typeof interestGroupPostLikes.$inferSelect;
+export type NewInterestGroupPostLike =
+  typeof interestGroupPostLikes.$inferInsert;
 
 // Define relations
 export const usersRelations = relations(users, ({ many }) => ({
@@ -483,3 +521,40 @@ export const eventRsvpsRelations = relations(eventRsvps, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export const interestGroupPostsRelations = relations(
+  interestGroupPosts,
+  ({ one, many }) => ({
+    interest: one(interests, {
+      fields: [interestGroupPosts.interestId],
+      references: [interests.id],
+    }),
+    user: one(users, {
+      fields: [interestGroupPosts.userId],
+      references: [users.id],
+    }),
+    parent: one(interestGroupPosts, {
+      fields: [interestGroupPosts.parentId],
+      references: [interestGroupPosts.id],
+    }),
+    replies: many(interestGroupPosts, {
+      fields: [interestGroupPosts.id],
+      references: [interestGroupPosts.parentId],
+    }),
+    likes: many(interestGroupPostLikes),
+  })
+);
+
+export const interestGroupPostLikesRelations = relations(
+  interestGroupPostLikes,
+  ({ one }) => ({
+    post: one(interestGroupPosts, {
+      fields: [interestGroupPostLikes.postId],
+      references: [interestGroupPosts.id],
+    }),
+    user: one(users, {
+      fields: [interestGroupPostLikes.userId],
+      references: [users.id],
+    }),
+  })
+);

@@ -13,6 +13,7 @@ import {
   LuX,
   LuGraduationCap,
   LuBriefcase,
+  LuNetwork,
 } from 'react-icons/lu';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -25,6 +26,11 @@ const sidebarItems = [
   { name: 'Matches', href: '/dashboard/matches', icon: LuUsers },
   { name: 'Courses', href: '/dashboard/course', icon: LuGraduationCap },
   { name: 'Jobs', href: '/dashboard/jobs', icon: LuBriefcase },
+  {
+    name: 'Interest Groups',
+    href: '/dashboard/interest-groups',
+    icon: LuNetwork,
+  },
   { name: 'Messages', href: '/dashboard/messages', icon: LuMessageSquare },
   { name: 'Events', href: '/dashboard/events', icon: LuCalendar },
   { name: 'Settings', href: '/dashboard/settings', icon: LuSettings },
