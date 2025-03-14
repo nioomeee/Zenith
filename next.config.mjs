@@ -25,7 +25,7 @@ const nextConfig = {
     },
   },
   images: {
-    domains: ['example.com', 'images.unsplash.com'], // Add the hostname here
+    domains: ['example.com', 'images.unsplash.com', 'i.imgur.com'], // Add the hostname here
   },
 };
 

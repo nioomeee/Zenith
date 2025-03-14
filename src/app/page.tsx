@@ -12,7 +12,6 @@ import { SignUpButton } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
-// Animation variants for buttons
 const buttonVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
