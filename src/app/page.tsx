@@ -55,14 +55,16 @@ export default function Home() {
               )}
             </ul>
           </nav>
-          <div className="border-2 border-[#121212] bg-[#c4ff0e] font-sans font-bold text-[#121212] hover:bg-[#a6d800] p-2 px-4">
-            <SignedOut>
+          <SignedOut>
+            <div className="border-2 border-[#121212] bg-[#c4ff0e] font-sans font-bold text-[#121212] hover:bg-[#a6d800] p-2 px-4">
               <SignUpButton />
-            </SignedOut>
-            <SignedIn>
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <div className="border-2 flex justify-center items-center border-[#121212] bg-[#c4ff0e] font-sans font-bold text-[#121212] hover:bg-[#a6d800] h-10 w-10 p-2 rounded-full">
               <UserButton />
-            </SignedIn>
-          </div>
+            </div>
+          </SignedIn>
         </div>
       </header>
 
@@ -136,9 +138,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-4">
             <div>
-              <h3 className="mb-4 font-sans text-xl font-bold">
-                GLS ALUMISPHERE
-              </h3>
+              <h3 className="mb-4 font-sans text-xl font-bold">GLS ZENITH</h3>
               <p className="text-sm">
                 A platform connecting GLS University students and alumni for
                 mentorship, career development, and community building.

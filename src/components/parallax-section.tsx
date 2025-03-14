@@ -1,20 +1,20 @@
-"use client"
+'use client';
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function ParallaxSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
-  })
+    offset: ['start end', 'end start'],
+  });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100])
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const y3 = useTransform(scrollYProgress, [0, 1], [200, -200])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [200, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   // Animation variants
   const containerVariants = {
@@ -26,7 +26,7 @@ export default function ParallaxSection() {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -34,12 +34,12 @@ export default function ParallaxSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
         damping: 15,
       },
     },
-  }
+  };
 
   return (
     <section
@@ -76,7 +76,7 @@ export default function ParallaxSection() {
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
-          WHY CHOOSE ALUMISPHERE?
+          WHY CHOOSE ZENITH?
         </motion.h2>
 
         <motion.div
@@ -94,29 +94,35 @@ export default function ParallaxSection() {
                 <motion.div
                   className="absolute left-0 top-0 h-16 w-16 border-4 border-[#121212] rounded-full"
                   whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                 />
                 <motion.div
                   className="absolute bottom-0 right-0 h-12 w-12 border-4 border-[#121212] rounded-full"
                   whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                 />
                 <motion.div
                   className="absolute left-10 top-8 h-16 w-4 border-4 border-[#121212] rotate-45"
                   whileHover={{ rotate: 60 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 10 }}
                 />
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Find Your Mentor</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Find Your Mentor
+            </h3>
             <p className="text-lg text-[#121212]">
-              Our smart matching algorithm connects you with alumni mentors who share your interests, career goals, and
-              values. Get personalized guidance from those who've walked your path.
+              Our smart matching algorithm connects you with alumni mentors who
+              share your interests, career goals, and values. Get personalized
+              guidance from those who've walked your path.
             </p>
           </motion.div>
 
           {/* Second column - offset vertically */}
-          <motion.div className="md:col-span-1 md:mt-12" variants={itemVariants}>
+          <motion.div
+            className="md:col-span-1 md:mt-12"
+            variants={itemVariants}
+          >
             <div className="mb-6 ml-8">
               {/* Custom network icon with animation */}
               <div className="relative h-24 w-24">
@@ -124,11 +130,11 @@ export default function ParallaxSection() {
                   className="absolute left-0 top-0 h-12 w-12 border-4 border-[#121212] rounded-full"
                   animate={{
                     scale: [1, 1.1, 1],
-                    borderColor: ["#121212", "#c4ff0e", "#121212"],
+                    borderColor: ['#121212', '#c4ff0e', '#121212'],
                   }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
+                    repeatType: 'reverse',
                     duration: 3,
                     delay: 0,
                   }}
@@ -137,11 +143,11 @@ export default function ParallaxSection() {
                   className="absolute right-0 top-0 h-12 w-12 border-4 border-[#121212] rounded-full"
                   animate={{
                     scale: [1, 1.1, 1],
-                    borderColor: ["#121212", "#0057b8", "#121212"],
+                    borderColor: ['#121212', '#0057b8', '#121212'],
                   }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
+                    repeatType: 'reverse',
                     duration: 3,
                     delay: 1,
                   }}
@@ -150,11 +156,11 @@ export default function ParallaxSection() {
                   className="absolute bottom-0 left-6 h-12 w-12 border-4 border-[#121212] rounded-full"
                   animate={{
                     scale: [1, 1.1, 1],
-                    borderColor: ["#121212", "#c4ff0e", "#121212"],
+                    borderColor: ['#121212', '#c4ff0e', '#121212'],
                   }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
+                    repeatType: 'reverse',
                     duration: 3,
                     delay: 2,
                   }}
@@ -164,7 +170,7 @@ export default function ParallaxSection() {
                   animate={{ rotate: [45, 60, 45] }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
+                    repeatType: 'reverse',
                     duration: 4,
                   }}
                 />
@@ -173,16 +179,19 @@ export default function ParallaxSection() {
                   animate={{ rotate: [135, 120, 135] }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
+                    repeatType: 'reverse',
                     duration: 4,
                   }}
                 />
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Expand Your Network</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Expand Your Network
+            </h3>
             <p className="text-lg text-[#121212]">
-              Join interest-based groups, attend virtual events, and connect with alumni across industries. Build
-              relationships that last beyond graduation.
+              Join interest-based groups, attend virtual events, and connect
+              with alumni across industries. Build relationships that last
+              beyond graduation.
             </p>
           </motion.div>
 
@@ -195,27 +204,29 @@ export default function ParallaxSection() {
                   className="h-16 w-20 border-4 border-[#121212]"
                   whileHover={{
                     scale: 1.05,
-                    borderColor: "#c4ff0e",
+                    borderColor: '#c4ff0e',
                   }}
                 />
                 <motion.div
                   className="absolute -top-2 left-6 h-4 w-8 border-4 border-[#121212]"
                   whileHover={{
                     scale: 1.1,
-                    borderColor: "#c4ff0e",
+                    borderColor: '#c4ff0e',
                   }}
                 />
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Launch Your Career</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Launch Your Career
+            </h3>
             <p className="text-lg text-[#121212]">
-              Discover job opportunities with "warm introductions" to alumni at hiring companies. Get insider advice
-              through flash mentoring and AMA sessions with industry experts.
+              Discover job opportunities with "warm introductions" to alumni at
+              hiring companies. Get insider advice through flash mentoring and
+              AMA sessions with industry experts.
             </p>
           </motion.div>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
-

@@ -244,7 +244,7 @@ export default function HeroSection() {
             >
               <Image
                 src={hero_img}
-                alt="GLS Alumisphere Platform"
+                alt="GLS Zenith Platform"
                 width={600}
                 height={500}
                 className="h-full w-full object-cover"
@@ -365,7 +365,7 @@ export default function HeroSection() {
                 viewport={{ once: false, amount: 0.5 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 whileHover={{ y: -10 }}
-                className={`border-4 border-[#121212] p-6 transition-all duration-300 ${
+                className={`border-4 border-[#121212] p-6 transition-all duration-100 ${
                   activeTab === index ? 'bg-[#c4ff0e]' : 'bg-[#f5f5f5]'
                 }`}
               >

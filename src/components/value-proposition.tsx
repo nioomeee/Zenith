@@ -10,7 +10,9 @@ export default function ValueProposition() {
       ></div>
 
       <div className="container mx-auto relative">
-        <h2 className="mb-12 font-sans text-4xl font-extrabold text-[#121212]">WHY CHOOSE ALUMISPHERE?</h2>
+        <h2 className="mb-12 font-sans text-4xl font-extrabold text-[#121212]">
+          WHY CHOOSE ZENITH?
+        </h2>
 
         <div className="grid gap-8 md:grid-cols-3">
           {/* First column - slightly wider */}
@@ -23,10 +25,13 @@ export default function ValueProposition() {
                 <div className="absolute left-10 top-8 h-16 w-4 border-4 border-[#121212] rotate-45"></div>
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Find Your Mentor</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Find Your Mentor
+            </h3>
             <p className="text-lg text-[#121212]">
-              Our smart matching algorithm connects you with alumni mentors who share your interests, career goals, and
-              values. Get personalized guidance from those who've walked your path.
+              Our smart matching algorithm connects you with alumni mentors who
+              share your interests, career goals, and values. Get personalized
+              guidance from those who've walked your path.
             </p>
           </div>
 
@@ -42,10 +47,13 @@ export default function ValueProposition() {
                 <div className="absolute right-4 top-4 h-16 w-4 border-4 border-[#121212] rotate-[135deg]"></div>
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Expand Your Network</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Expand Your Network
+            </h3>
             <p className="text-lg text-[#121212]">
-              Join interest-based groups, attend virtual events, and connect with alumni across industries. Build
-              relationships that last beyond graduation.
+              Join interest-based groups, attend virtual events, and connect
+              with alumni across industries. Build relationships that last
+              beyond graduation.
             </p>
           </div>
 
@@ -58,15 +66,17 @@ export default function ValueProposition() {
                 <div className="absolute -top-2 left-6 h-4 w-8 border-4 border-[#121212]"></div>
               </div>
             </div>
-            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">Launch Your Career</h3>
+            <h3 className="mb-4 font-sans text-2xl font-bold text-[#121212]">
+              Launch Your Career
+            </h3>
             <p className="text-lg text-[#121212]">
-              Discover job opportunities with "warm introductions" to alumni at hiring companies. Get insider advice
-              through flash mentoring and AMA sessions with industry experts.
+              Discover job opportunities with "warm introductions" to alumni at
+              hiring companies. Get insider advice through flash mentoring and
+              AMA sessions with industry experts.
             </p>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

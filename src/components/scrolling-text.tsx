@@ -73,7 +73,7 @@ export default function ScrollingText() {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden border-b-4 border-[#121212] bg-[#c4ff0e] py-8"
+      className="relative overflow-hidden border-b-4 border-[#121212] bg-[#c4ff0e] py-2 h-28"
     >
       <div className="flex whitespace-nowrap">
         <div
