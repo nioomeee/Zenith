@@ -14,6 +14,7 @@ import {
   LuGraduationCap,
   LuBriefcase,
   LuNetwork,
+  LuMicroscope,
 } from 'react-icons/lu';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -31,6 +32,7 @@ const sidebarItems = [
     href: '/dashboard/interest-groups',
     icon: LuNetwork,
   },
+  { name: 'AMA Sessions', href: '/dashboard/ama', icon: LuMicroscope },
   { name: 'Messages', href: '/dashboard/messages', icon: LuMessageSquare },
   { name: 'Events', href: '/dashboard/events', icon: LuCalendar },
   { name: 'Settings', href: '/dashboard/settings', icon: LuSettings },
