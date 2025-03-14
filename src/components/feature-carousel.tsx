@@ -80,7 +80,6 @@ export default function FeatureCarousel() {
                   </p>
                 </div>
                 <div className="relative overflow-hidden">
-                  {/* Apply duotone effect with CSS */}
                   <div className="relative">
                     <Image
                       src={features[currentIndex].image || '/placeholder.svg'}
