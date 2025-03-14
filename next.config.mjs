@@ -24,6 +24,9 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  images: {
+    domains: ['example.com', 'images.unsplash.com'], // Add the hostname here
+  },
 };
 
 export default nextConfig;

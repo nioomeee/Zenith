@@ -7,6 +7,9 @@ import {
   primaryKey,
   boolean,
   type PgTableWithColumns,
+  jsonb,
+  uuid,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { relations, type InferModel, type RelationConfig } from 'drizzle-orm';
 
@@ -148,12 +151,144 @@ export const userUniversityGroups = pgTable(
   })
 );
 
+// Companies table
+export const companies = pgTable('companies', {
+  id: text('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  description: text('description'),
+  industry: varchar('industry', { length: 100 }),
+  website: text('website'),
+  logo: text('logo'),
+  size: varchar('size', { length: 50 }), // e.g., "1-10", "11-50", "51-200", etc.
+  founded: integer('founded'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+// Jobs table
+export const jobs = pgTable('jobs', {
+  id: text('id').primaryKey(),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description').notNull(),
+  companyId: text('company_id')
+    .notNull()
+    .references(() => companies.id, { onDelete: 'cascade' }),
+  posterId: text('poster_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }), // Alumni who posted the job
+  type: varchar('type', { length: 50 }), // "full-time", "part-time", "internship", etc.
+  location: varchar('location', { length: 255 }),
+  isRemote: boolean('is_remote').default(false),
+  experienceLevel: varchar('experience_level', { length: 50 }), // "entry", "mid", "senior", etc.
+  salaryMin: integer('salary_min'),
+  salaryMax: integer('salary_max'),
+  requirements: jsonb('requirements').default([]), // Array of requirements
+  responsibilities: jsonb('responsibilities').default([]), // Array of responsibilities
+  status: varchar('status', { length: 50 }).default('active'), // "active", "filled", "expired", etc.
+  applicationDeadline: timestamp('application_deadline'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+// Job applications table
+export const jobApplications = pgTable('job_applications', {
+  id: text('id').primaryKey(),
+  jobId: text('job_id')
+    .notNull()
+    .references(() => jobs.id, { onDelete: 'cascade' }),
+  applicantId: text('applicant_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  status: varchar('status', { length: 50 }).default('pending'), // "pending", "reviewed", "interviewed", "accepted", "rejected"
+  coverLetter: text('cover_letter'),
+  resume: text('resume'),
+  referrerId: text('referrer_id').references(() => users.id), // Alumni who referred the applicant
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+// Company alumni table (to track alumni at each company)
+export const companyAlumni = pgTable(
+  'company_alumni',
+  {
+    companyId: text('company_id')
+      .notNull()
+      .references(() => companies.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    position: varchar('position', { length: 255 }),
+    startDate: timestamp('start_date'),
+    endDate: timestamp('end_date'),
+    isCurrent: boolean('is_current').default(true),
+    showAsConnection: boolean('show_as_connection').default(true), // Privacy control
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.companyId, table.userId] }),
+  })
+);
+
+// Events table
+export const events = pgTable('events', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  date: timestamp('date').notNull(),
+  location: text('location').notNull(),
+  isVirtual: boolean('is_virtual').default(false),
+  virtualLink: text('virtual_link'),
+  maxAttendees: integer('max_attendees'),
+  organizerId: text('organizer_id')
+    .references(() => users.id)
+    .notNull(),
+  image: text('image'),
+  category: text('category').notNull(), // e.g., 'networking', 'workshop', 'seminar'
+  status: text('status').notNull().default('upcoming'), // 'upcoming', 'ongoing', 'completed', 'cancelled'
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Event RSVPs table
+export const eventRsvps = pgTable(
+  'event_rsvps',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    eventId: uuid('event_id')
+      .references(() => events.id)
+      .notNull(),
+    userId: text('user_id')
+      .references(() => users.id)
+      .notNull(),
+    status: text('status').notNull(), // 'attending', 'maybe', 'not_attending'
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  },
+  (table) => {
+    return {
+      eventUserUnique: uniqueIndex('event_user_unique').on(
+        table.eventId,
+        table.userId
+      ),
+    };
+  }
+);
+
 // Define types
 export type User = InferModel<typeof users>;
 export type Interest = InferModel<typeof interests>;
 export type CareerPath = InferModel<typeof careerPaths>;
 export type MentorshipArea = InferModel<typeof mentorshipAreas>;
 export type UniversityGroup = InferModel<typeof universityGroups>;
+export type Company = InferModel<typeof companies>;
+export type Job = InferModel<typeof jobs>;
+export type JobApplication = InferModel<typeof jobApplications>;
+export type CompanyAlumni = InferModel<typeof companyAlumni>;
+export type Event = typeof events.$inferSelect;
+export type NewEvent = typeof events.$inferInsert;
+export type EventRsvp = typeof eventRsvps.$inferSelect;
+export type NewEventRsvp = typeof eventRsvps.$inferInsert;
 
 // Define relations
 export const usersRelations = relations(users, ({ many }) => ({
@@ -287,3 +422,64 @@ export const userUniversityGroupsRelations = relations(
     }),
   })
 );
+
+export const companiesRelations = relations(companies, ({ many }) => ({
+  jobs: many(jobs),
+  alumni: many(companyAlumni),
+}));
+
+export const jobsRelations = relations(jobs, ({ one, many }) => ({
+  company: one(companies, {
+    fields: [jobs.companyId],
+    references: [companies.id],
+  }),
+  poster: one(users, {
+    fields: [jobs.posterId],
+    references: [users.id],
+  }),
+  applications: many(jobApplications),
+}));
+
+export const jobApplicationsRelations = relations(
+  jobApplications,
+  ({ one }) => ({
+    job: one(jobs, {
+      fields: [jobApplications.jobId],
+      references: [jobs.id],
+    }),
+    applicant: one(users, {
+      fields: [jobApplications.applicantId],
+      references: [users.id],
+    }),
+    referrer: one(users, {
+      fields: [jobApplications.referrerId],
+      references: [users.id],
+    }),
+  })
+);
+
+export const companyAlumniRelations = relations(companyAlumni, ({ one }) => ({
+  company: one(companies, {
+    fields: [companyAlumni.companyId],
+    references: [companies.id],
+  }),
+  user: one(users, {
+    fields: [companyAlumni.userId],
+    references: [users.id],
+  }),
+}));
+
+export const eventsRelations = relations(events, ({ many }) => ({
+  rsvps: many(eventRsvps),
+}));
+
+export const eventRsvpsRelations = relations(eventRsvps, ({ one }) => ({
+  event: one(events, {
+    fields: [eventRsvps.eventId],
+    references: [events.id],
+  }),
+  user: one(users, {
+    fields: [eventRsvps.userId],
+    references: [users.id],
+  }),
+}));

@@ -1,10 +1,10 @@
 import { Hono } from 'hono';
 import { handle } from 'hono/vercel';
-import { db } from '@/db'; // Assuming this works with Hono
+import { db } from '@/db';
 import { users } from '@/db/schema';
 import { eq, and, sql } from 'drizzle-orm';
 import { calculateMatchScore } from '@/utils/matching';
-import { Context } from 'hono'; // Import the Context type
+import { Context } from 'hono';
 
 interface MatchResponse {
   userId: string;

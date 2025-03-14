@@ -109,4 +109,64 @@ INSERT INTO user_university_groups (user_id, group_id, role, start_year, end_yea
 ('alumni_2', 'ug_2', 'leader', 2015, 2019),
 ('alumni_3', 'ug_3', 'member', 2014, 2018),
 ('student_1', 'ug_1', 'member', 2020, NULL),
-('student_2', 'ug_2', 'member', 2021, NULL); 
+('student_2', 'ug_2', 'member', 2021, NULL);
+
+-- Companies
+INSERT INTO companies (id, name, description, industry, website, logo, size, founded)
+VALUES
+  ('company_1', 'TechCorp', 'Leading technology solutions provider', 'Technology', 'https://techcorp.com', 'https://example.com/logos/techcorp.png', '51-200', 2010),
+  ('company_2', 'FinanceHub', 'Innovative financial services', 'Finance', 'https://financehub.com', 'https://example.com/logos/financehub.png', '201-500', 2005),
+  ('company_3', 'HealthTech', 'Healthcare technology solutions', 'Healthcare', 'https://healthtech.com', 'https://example.com/logos/healthtech.png', '11-50', 2015),
+  ('company_4', 'EduLearn', 'Educational technology platform', 'Education', 'https://edulearn.com', 'https://example.com/logos/edulearn.png', '1-10', 2020),
+  ('company_5', 'GreenEnergy', 'Sustainable energy solutions', 'Energy', 'https://greenenergy.com', 'https://example.com/logos/greenenergy.png', '51-200', 2012);
+
+-- Company Alumni (using existing alumni users)
+INSERT INTO company_alumni (company_id, user_id, position, start_date, is_current, show_as_connection)
+VALUES
+  ('company_1', 'alumni_1', 'Senior Software Engineer', '2020-01-01', true, true),
+  ('company_1', 'alumni_2', 'Product Manager', '2019-06-01', true, true),
+  ('company_2', 'alumni_3', 'Financial Analyst', '2018-03-01', true, true);
+-- Jobs
+INSERT INTO jobs (id, title, description, company_id, poster_id, type, location, is_remote, experience_level, salary_min, salary_max, requirements, responsibilities, status, application_deadline)
+VALUES
+  ('job_1', 'Software Engineer', 'Join our dynamic engineering team', 'company_1', 'alumni_1', 'full-time', 'San Francisco, CA', true, 'entry', 80000, 120000, 
+   '["Bachelor''s in CS or related field", "Experience with React and Node.js", "Strong problem-solving skills"]'::jsonb,
+   '["Develop and maintain web applications", "Collaborate with cross-functional teams", "Write clean, maintainable code"]'::jsonb,
+   'active', '2024-05-01'),
+  
+  ('job_2', 'Product Manager', 'Lead product development initiatives', 'company_1', 'alumni_2', 'full-time', 'New York, NY', false, 'mid', 100000, 150000,
+   '["3+ years of product management experience", "Strong analytical skills", "Excellent communication"]'::jsonb,
+   '["Define product strategy", "Work with stakeholders", "Drive product roadmap"]'::jsonb,
+   'active', '2024-04-15'),
+  
+  ('job_3', 'Financial Analyst', 'Join our finance team', 'company_2', 'alumni_3', 'full-time', 'Chicago, IL', false, 'entry', 70000, 90000,
+   '["Bachelor''s in Finance or related", "Excel proficiency", "Strong analytical skills"]'::jsonb,
+   '["Perform financial analysis", "Prepare reports", "Support decision making"]'::jsonb,
+   'active', '2024-04-30');
+
+-- Sample job applications
+INSERT INTO job_applications (id, job_id, applicant_id, status, cover_letter, resume, referrer_id)
+VALUES
+  ('app_1', 'job_1', 'student_1', 'pending', 'I am excited to apply...', 'resume_url_1', 'alumni_1'),
+  ('app_2', 'job_2', 'student_2', 'reviewed', 'I would love to join...', 'resume_url_2', 'alumni_2'),
+  ('app_3', 'job_3', 'student_2', 'pending', 'I am interested in...', 'resume_url_3', null);
+
+-- Insert events
+INSERT INTO events (title, description, date, location, is_virtual, virtual_link, max_attendees, organizer_id, image, category, status)
+VALUES
+  ('Alumni Networking Night', 'Join us for an evening of networking with successful GLS alumni from various industries. Share experiences, build connections, and explore career opportunities.', '2024-05-15 18:00:00', 'GLS University Main Hall', false, null, 100, 'alumni_1', 'https://images.unsplash.com/photo-1511578314322-379afb476865', 'networking', 'upcoming'),
+  ('Tech Career Workshop', 'Learn about the latest trends in technology and how to prepare for a successful career in tech. Special focus on AI and Machine Learning.', '2024-05-20 14:00:00', 'Online', true, 'https://zoom.us/j/123456789', 50, 'alumni_2', 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', 'workshop', 'upcoming'),
+  ('Entrepreneurship Seminar', 'Discover what it takes to start and grow a successful business. Hear from experienced entrepreneurs and learn about funding opportunities.', '2024-06-01 10:00:00', 'GLS Business School Auditorium', false, null, 75, 'alumni_3', 'https://images.unsplash.com/photo-1552664730-d307ca884978', 'seminar', 'upcoming'),
+  ('Resume Building Workshop', 'Get expert tips on crafting a compelling resume that stands out. Includes one-on-one review sessions with industry professionals.', '2024-06-10 15:00:00', 'Online', true, 'https://zoom.us/j/987654321', 30, 'alumni_2', 'https://images.unsplash.com/photo-1586281380349-632531db7ed4', 'workshop', 'upcoming'),
+  ('Industry Panel Discussion', 'Leading professionals discuss the future of work and emerging opportunities across different sectors.', '2024-06-15 13:00:00', 'GLS Conference Center', false, null, 150, 'alumni_1', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2', 'panel', 'upcoming');
+-- Insert event RSVPs
+INSERT INTO event_rsvps (event_id, user_id, status)
+VALUES
+  ('280dc89d-ff1f-43e3-b6c2-06e2e09ff5f2', 'student_1', 'attending'),
+  ('604348af-32d4-4a71-9b56-a0f04b2bd754', 'student_2', 'maybe'),
+  ('280dc89d-ff1f-43e3-b6c2-06e2e09ff5f2', 'student_1', 'attending'),
+  ('604348af-32d4-4a71-9b56-a0f04b2bd754', 'student_3', 'attending'),
+  ('280dc89d-ff1f-43e3-b6c2-06e2e09ff5f2', 'student_2', 'attending'),
+  ('914ca55d-7fc4-470c-a305-4679a653b90c', 'student_4', 'not_attending'),
+  ('9fdc7333-76f4-4e51-a2e5-65f75ea4b5bf', 'student_1', 'maybe'),
+  ('914ca55d-7fc4-470c-a305-4679a653b90c', 'student_3', 'attending');
