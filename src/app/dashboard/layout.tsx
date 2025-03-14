@@ -58,11 +58,20 @@ export default function DashboardLayout({
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="p-6 flex items-center flex-row">
-            <Image src={logo.src} alt="Zenith Logo" width={50} height={50} />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              enith
-            </h1>
+          <div className="p-6 ">
+            <Link href="/">
+              <div className="flex items-center flex-row">
+                <Image
+                  src={logo.src}
+                  alt="Zenith Logo"
+                  width={50}
+                  height={50}
+                />
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                  enith
+                </h1>
+              </div>
+            </Link>
           </div>
 
           {/* Navigation */}

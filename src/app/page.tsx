@@ -31,12 +31,14 @@ export default function Home() {
       {/* Header */}
       <header className="fixed top-0 z-50 w-full border-b-4 border-[#121212] bg-[#f5f5f5] px-4 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image src={logo.src} alt="Zenith Logo" width={50} height={50} />
-            <span className="font-sans text-xl font-extrabold text-[#121212]">
-              Zenith
-            </span>
-          </div>
+          <Link href="/">
+            <div className="flex items-center">
+              <Image src={logo.src} alt="Zenith Logo" width={50} height={50} />
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-500 to-slate-800 bg-clip-text text-transparent">
+                enith
+              </h1>
+            </div>
+          </Link>
           <nav className="hidden md:block">
             <ul className="flex gap-8">
               {['Features', 'Mentorship', 'Jobs', 'Events', 'About'].map(
@@ -91,9 +93,8 @@ export default function Home() {
               "
             </span>
             <p className="font-bebas text-3xl leading-tight text-[#f5f5f5] md:text-5xl">
-              GLS ALUMISPHERE CONNECTED ME WITH A MENTOR WHO HELPED ME LAND MY
-              DREAM JOB. THE PLATFORM'S MATCHING ALGORITHM IS INCREDIBLY
-              ACCURATE!
+              GLS ZENITH CONNECTED ME WITH A MENTOR WHO HELPED ME LAND MY DREAM
+              JOB. THE PLATFORM'S MATCHING ALGORITHM IS INCREDIBLY ACCURATE!
             </p>
             <span className="absolute -bottom-16 -right-8 font-sans text-9xl font-bold text-[#c4ff0e]">
               "
@@ -192,8 +193,24 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 border-t border-[#333] pt-4 text-center text-sm">
-            &copy; {new Date().getFullYear()} GLS Alumisphere. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} GLS Zenith. All rights reserved.
+            Made by{' '}
+            <Link
+              href="https://www.vinayth.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="underline">Vinay</span>
+            </Link>{' '}
+            &{' '}
+            <Link
+              href="https://www.github.com/nioomeee"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="underline">Niomi</span>
+            </Link>{' '}
+            with ❤️
           </div>
         </div>
       </footer>

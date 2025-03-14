@@ -333,12 +333,12 @@ export default function HeroSection() {
           ref={scrollTextRef}
           className="relative mt-16 overflow-hidden py-8"
         >
-          <div className="scroll-text whitespace-nowrap font-bebas text-6xl font-bold text-[#121212]/10">
+          <div className="scroll-text whitespace-nowrap font-bebas text-6xl font-bold text-[#a5d710]">
             CONNECT • MENTOR • NETWORK • GROW • THRIVE • CONNECT • MENTOR •
             NETWORK • GROW • THRIVE • CONNECT • MENTOR • NETWORK • GROW • THRIVE
             • CONNECT • MENTOR • NETWORK • GROW • THRIVE •
           </div>
-          <div className="scroll-text whitespace-nowrap font-bebas text-6xl font-bold text-[#121212]/10 mt-4">
+          <div className="scroll-text whitespace-nowrap font-bebas text-6xl font-bold text-[#a5d710] mt-4">
             ALUMNI • STUDENTS • CAREERS • OPPORTUNITIES • FUTURE • ALUMNI •
             STUDENTS • CAREERS • OPPORTUNITIES • FUTURE • ALUMNI • STUDENTS •
             CAREERS • OPPORTUNITIES • FUTURE •
