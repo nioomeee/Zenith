@@ -11,9 +11,7 @@ import {
   LuBuilding,
   LuUsers,
   LuPlus,
-  LuClock,
   LuDollarSign,
-  LuGlobe,
 } from 'react-icons/lu';
 import { useUser } from '@clerk/nextjs';
 

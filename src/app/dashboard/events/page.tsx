@@ -10,9 +10,7 @@ import {
   LuUsers,
   LuFilter,
   LuRefreshCw,
-  LuClock,
   LuGlobe,
-  LuBuilding,
   LuCheck,
   LuX,
   LuHeadset,
@@ -48,7 +46,6 @@ function EventCard({ event, onRsvp }: EventCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [isRsvping, setIsRsvping] = useState(false);
-  const router = useRouter();
 
   const handleRsvp = async (status: string) => {
     setIsRsvping(true);
@@ -314,7 +311,7 @@ export default function EventsPage() {
 
       const res = await fetch(`/api/events?${queryParams}`, {
         headers: {
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
       });
       if (!res.ok) throw new Error('Failed to fetch events');
@@ -340,7 +337,7 @@ export default function EventsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
         body: JSON.stringify({ status }),
       });

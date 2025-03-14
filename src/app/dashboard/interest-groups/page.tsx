@@ -9,11 +9,8 @@ import {
   LuFilter,
   LuRefreshCw,
   LuMessageSquare,
-  LuHeart,
-  LuHeartOff,
   LuUserPlus,
   LuUserMinus,
-  LuSend,
 } from 'react-icons/lu';
 
 interface InterestGroup {
@@ -190,7 +187,7 @@ export default function InterestGroupsPage() {
       setError(null);
       const res = await fetch('/api/interest-groups', {
         headers: {
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
       });
       if (!res.ok) throw new Error('Failed to fetch groups');
@@ -229,7 +226,7 @@ export default function InterestGroupsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
         body: JSON.stringify({ action }),
       });

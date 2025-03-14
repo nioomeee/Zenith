@@ -6,14 +6,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   LuCalendar,
-  LuClock,
   LuUsers,
   LuPlus,
   LuFilter,
   LuRefreshCw,
-  LuGraduationCap,
-  LuBriefcase,
-  LuMapPin,
 } from 'react-icons/lu';
 
 interface AMASession {
@@ -180,7 +176,7 @@ export default function AMAPage() {
       setError(null);
       const res = await fetch('/api/ama', {
         headers: {
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
       });
       if (!res.ok) throw new Error('Failed to fetch AMA sessions');
@@ -214,7 +210,7 @@ export default function AMAPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
         body: JSON.stringify({ status: 'attending' }),
       });
@@ -231,7 +227,6 @@ export default function AMAPage() {
       );
     } catch (err) {
       console.error('Error registering for session:', err);
-      // Show error toast
     }
   };
 

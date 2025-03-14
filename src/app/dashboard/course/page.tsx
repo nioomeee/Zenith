@@ -28,7 +28,6 @@ export default function CoursePage() {
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Fetch courses on mount
   React.useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -43,7 +42,6 @@ export default function CoursePage() {
     };
     fetchCourses();
   }, []);
-  // Fetch students when course/year changes
   useEffect(() => {
     if (!selectedCourse) return;
 

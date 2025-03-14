@@ -86,13 +86,10 @@ export default function JobDetailsPage() {
 
       if (!response.ok) throw new Error('Failed to submit application');
 
-      // Show success message and reset form
       setShowApplyForm(false);
       setApplicationData({ coverLetter: '', resume: null });
-      // You can add a success toast/notification here
     } catch (err) {
       console.error('Error submitting application:', err);
-      // You can add an error toast/notification here
     }
   };
 

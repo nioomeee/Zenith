@@ -269,7 +269,7 @@ export default function AMASessionPage() {
       setError(null);
       const res = await fetch(`/api/ama/${params.id}`, {
         headers: {
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
       });
       if (!res.ok) throw new Error('Failed to fetch session details');
@@ -297,7 +297,7 @@ export default function AMASessionPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
         body: JSON.stringify({ content: newQuestion }),
       });
@@ -305,7 +305,7 @@ export default function AMASessionPage() {
       if (!res.ok) throw new Error('Failed to post question');
 
       setNewQuestion('');
-      await fetchSession(); // Refresh the questions list
+      await fetchSession();
     } catch (err) {
       console.error('Error posting question:', err);
     } finally {
@@ -321,13 +321,12 @@ export default function AMASessionPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': 'student_1', // Replace with actual user ID
+          'X-User-Id': 'student_1',
         },
       });
 
       if (!res.ok) throw new Error('Failed to like question');
 
-      // Update local state
       setSession((prev) => {
         if (!prev) return prev;
         return {
@@ -356,13 +355,12 @@ export default function AMASessionPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Id': session.organizer.id, // Only the organizer can pin
+          'X-User-Id': session.organizer.id,
         },
       });
 
       if (!res.ok) throw new Error('Failed to pin question');
 
-      // Update local state
       setSession((prev) => {
         if (!prev) return prev;
         return {
@@ -473,13 +471,13 @@ export default function AMASessionPage() {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                      'X-User-Id': 'student_1', // Replace with actual user ID
+                      'X-User-Id': 'student_1',
                     },
                   });
 
                   if (!res.ok) throw new Error('Failed to register');
 
-                  await fetchSession(); // Refresh session data
+                  await fetchSession();
                 } catch (err) {
                   console.error('Error registering:', err);
                 }

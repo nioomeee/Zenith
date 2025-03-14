@@ -9,10 +9,8 @@ import {
   LuBuilding,
   LuDollarSign,
   LuCalendar,
-  LuClock,
   LuArrowLeft,
   LuSend,
-  LuCircle,
 } from 'react-icons/lu';
 
 interface JobFormData {
