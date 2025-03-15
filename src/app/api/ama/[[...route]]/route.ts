@@ -6,7 +6,6 @@ import { eq, and, gte, desc } from 'drizzle-orm';
 
 const app = new Hono().basePath('/api/ama');
 
-// Get all upcoming AMA sessions
 app.get('/', async (c) => {
   try {
     const userId = c.req.header('X-User-Id');
@@ -14,7 +13,6 @@ app.get('/', async (c) => {
       return c.json({ error: 'Unauthorized' }, 401);
     }
 
-    // First get all AMA events
     const amaSessions = await db
       .select({
         id: events.id,
@@ -29,10 +27,8 @@ app.get('/', async (c) => {
       .where(and(eq(events.category, 'ama'), gte(events.date, new Date())))
       .orderBy(desc(events.date));
 
-    // Get organizer details for each session
     const sessionsWithDetails = await Promise.all(
       amaSessions.map(async (session) => {
-        // Get organizer info
         const organizer = await db.query.users.findFirst({
           where: eq(users.id, session.organizerId),
           columns: {
@@ -44,7 +40,6 @@ app.get('/', async (c) => {
           },
         });
 
-        // Get RSVP status for the current user
         const rsvp = await db.query.eventRsvps.findFirst({
           where: and(
             eq(eventRsvps.eventId, session.id),
@@ -52,7 +47,6 @@ app.get('/', async (c) => {
           ),
         });
 
-        // Get total number of RSVPs
         const rsvpCount = await db
           .select({ count: eventRsvps.id })
           .from(eventRsvps)
@@ -81,7 +75,6 @@ app.get('/', async (c) => {
   }
 });
 
-// Create a new AMA session (alumni only)
 app.post('/', async (c) => {
   try {
     const userId = c.req.header('X-User-Id');
@@ -89,7 +82,6 @@ app.post('/', async (c) => {
       return c.json({ error: 'Unauthorized' }, 401);
     }
 
-    // Check if user is alumni
     const user = await db.query.users.findFirst({
       where: eq(users.id, userId),
     });
@@ -108,12 +100,10 @@ app.post('/', async (c) => {
       targetAudience,
     } = body;
 
-    // Basic validation
     if (!title || !description || !date || !duration) {
       return c.json({ error: 'Missing required fields' }, 400);
     }
 
-    // Create AMA session
     const [session] = await db
       .insert(events)
       .values({
@@ -136,7 +126,6 @@ app.post('/', async (c) => {
   }
 });
 
-// Register for an AMA session
 app.post('/:id/register', async (c) => {
   try {
     const userId = c.req.header('X-User-Id');
@@ -156,7 +145,6 @@ app.post('/:id/register', async (c) => {
       return c.json({ error: 'Session not found' }, 404);
     }
 
-    // Get current RSVP count
     const rsvpCount = await db
       .select({ count: eventRsvps.id })
       .from(eventRsvps)
@@ -166,7 +154,6 @@ app.post('/:id/register', async (c) => {
       return c.json({ error: 'Session is full' }, 400);
     }
 
-    // Check if user is already registered
     const existingRsvp = await db.query.eventRsvps.findFirst({
       where: and(
         eq(eventRsvps.eventId, sessionId),
@@ -176,14 +163,12 @@ app.post('/:id/register', async (c) => {
 
     let rsvp;
     if (existingRsvp) {
-      // Update existing RSVP
       [rsvp] = await db
         .update(eventRsvps)
         .set({ status })
         .where(eq(eventRsvps.id, existingRsvp.id))
         .returning();
     } else {
-      // Create new RSVP
       [rsvp] = await db
         .insert(eventRsvps)
         .values({
@@ -201,7 +186,6 @@ app.post('/:id/register', async (c) => {
   }
 });
 
-// Get session details
 app.get('/:id', async (c) => {
   try {
     const userId = c.req.header('X-User-Id');
@@ -211,7 +195,6 @@ app.get('/:id', async (c) => {
 
     const sessionId = c.req.param('id');
 
-    // Get session details
     const session = await db.query.events.findFirst({
       where: eq(events.id, sessionId),
     });
@@ -234,7 +217,6 @@ app.get('/:id', async (c) => {
       },
     });
 
-    // Get RSVPs
     const rsvps = await db
       .select({
         id: eventRsvps.id,
@@ -244,7 +226,6 @@ app.get('/:id', async (c) => {
       .from(eventRsvps)
       .where(eq(eventRsvps.eventId, sessionId));
 
-    // Get user details for each RSVP
     const rsvpsWithUsers = await Promise.all(
       rsvps.map(async (rsvp) => {
         const user = await db.query.users.findFirst({

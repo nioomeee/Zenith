@@ -308,6 +308,27 @@ export const eventRsvps = pgTable(
   }
 );
 
+// Flash mentoring requests table
+export const flashMentoringRequests = pgTable('flash_mentoring_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  studentId: text('student_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  areaId: text('area_id')
+    .notNull()
+    .references(() => mentorshipAreas.id, { onDelete: 'cascade' }),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  duration: integer('duration').notNull(),
+  preferredTime: text('preferred_time'),
+  status: text('status').notNull().default('pending'),
+  mentorId: text('mentor_id').references(() => users.id),
+  scheduledFor: timestamp('scheduled_for'),
+  meetingLink: text('meeting_link'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
 // Define types
 export type User = InferModel<typeof users>;
 export type Interest = InferModel<typeof interests>;
@@ -327,6 +348,9 @@ export type NewInterestGroupPost = typeof interestGroupPosts.$inferInsert;
 export type InterestGroupPostLike = typeof interestGroupPostLikes.$inferSelect;
 export type NewInterestGroupPostLike =
   typeof interestGroupPostLikes.$inferInsert;
+export type FlashMentoringRequest = typeof flashMentoringRequests.$inferSelect;
+export type NewFlashMentoringRequest =
+  typeof flashMentoringRequests.$inferInsert;
 
 // Define relations
 export const usersRelations = relations(users, ({ many }) => ({
@@ -555,6 +579,24 @@ export const interestGroupPostLikesRelations = relations(
     user: one(users, {
       fields: [interestGroupPostLikes.userId],
       references: [users.id],
+    }),
+  })
+);
+
+export const flashMentoringRequestsRelations = relations(
+  flashMentoringRequests,
+  ({ one }) => ({
+    student: one(users, {
+      fields: [flashMentoringRequests.studentId],
+      references: [users.id],
+    }),
+    mentor: one(users, {
+      fields: [flashMentoringRequests.mentorId],
+      references: [users.id],
+    }),
+    area: one(mentorshipAreas, {
+      fields: [flashMentoringRequests.areaId],
+      references: [mentorshipAreas.id],
     }),
   })
 );

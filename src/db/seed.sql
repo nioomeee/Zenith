@@ -27,11 +27,16 @@ INSERT INTO career_paths (id, name, parent_id, level) VALUES
 
 -- Mentorship Areas
 INSERT INTO mentorship_areas (id, name, description) VALUES
-('ma_1', 'Career Guidance', 'General career path advice and planning'),
-('ma_2', 'Technical Skills', 'Programming, development, and technical expertise'),
-('ma_3', 'Interview Prep', 'Technical and behavioral interview preparation'),
-('ma_4', 'Resume Review', 'CV and portfolio review and optimization'),
-('ma_5', 'Networking', 'Industry networking and relationship building');
+('career-guidance', 'Career Guidance', 'Get advice on career paths, job searching, and professional development'),
+('technical-skills', 'Technical Skills', 'Learn about specific technical skills, programming languages, or tools'),
+('interview-prep', 'Interview Preparation', 'Get help preparing for technical and behavioral interviews'),
+('resume-review', 'Resume Review', 'Get feedback on your resume and portfolio'),
+('grad-school', 'Graduate School', 'Discuss graduate school applications and academic career paths'),
+('entrepreneurship', 'Entrepreneurship', 'Learn about starting and growing your own business'),
+('industry-insights', 'Industry Insights', 'Get insights about specific industries or companies'),
+('work-life-balance', 'Work-Life Balance', 'Discuss managing professional and personal life'),
+('networking', 'Networking', 'Learn effective networking strategies and building professional relationships'),
+('leadership', 'Leadership', 'Develop leadership and management skills');
 
 -- University Groups
 INSERT INTO university_groups (id, name, description) VALUES
@@ -86,22 +91,22 @@ INSERT INTO user_career_paths (user_id, career_path_id, is_target) VALUES
 
 -- Mentorship Offerings (Alumni)
 INSERT INTO mentorship_offerings (user_id, area_id) VALUES
-('alumni_1', 'ma_2'),
-('alumni_1', 'ma_3'),
-('alumni_1', 'ma_4'),
-('alumni_2', 'ma_1'),
-('alumni_2', 'ma_4'),
-('alumni_2', 'ma_5'),
-('alumni_3', 'ma_2'),
-('alumni_3', 'ma_3');
+('alumni_1', 'technical-skills'),
+('alumni_1', 'interview-prep'),
+('alumni_1', 'resume-review'),
+('alumni_2', 'career-guidance'),
+('alumni_2', 'leadership'),
+('alumni_2', 'networking'),
+('alumni_3', 'technical-skills'),
+('alumni_3', 'industry-insights');
 
 -- Mentorship Needs (Students)
 INSERT INTO mentorship_needs (user_id, area_id) VALUES
-('student_1', 'ma_2'),
-('student_1', 'ma_3'),
-('student_1', 'ma_4'),
-('student_2', 'ma_1'),
-('student_2', 'ma_5');
+('student_1', 'technical-skills'),
+('student_1', 'interview-prep'),
+('student_1', 'resume-review'),
+('student_2', 'career-guidance'),
+('student_2', 'networking');
 
 -- University Group Memberships
 INSERT INTO user_university_groups (user_id, group_id, role, start_year, end_year) VALUES
