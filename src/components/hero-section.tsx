@@ -406,9 +406,11 @@ export default function HeroSection() {
               </p>
             </div>
             <div className="flex items-center justify-start md:justify-end">
-              <Button className="border-4 border-[#121212] bg-[#c4ff0e] px-8 py-4 font-sans text-lg font-bold text-[#121212] hover:bg-[#f5f5f5]">
-                GET STARTED TODAY
-              </Button>
+              <Link href="/dashboard">
+                <Button className="border-4 border-[#121212] bg-[#c4ff0e] px-8 py-4 font-sans text-lg font-bold text-[#121212] hover:bg-[#f5f5f5]">
+                  GET STARTED TODAY
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>
