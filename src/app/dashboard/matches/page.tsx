@@ -233,7 +233,7 @@ export default function MatchesPage() {
       )}
 
       {/* Filters and Refresh */}
-      <motion.div
+      {/* <motion.div
         className="mb-8 p-6 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-xl border border-gray-700 shadow-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -284,7 +284,7 @@ export default function MatchesPage() {
               </div>
             ))}
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Matches Grid */}
       <AnimatePresence>
