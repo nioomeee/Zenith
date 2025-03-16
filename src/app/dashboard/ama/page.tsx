@@ -244,7 +244,7 @@ export default function AMAPage() {
         className="mb-8"
       >
         <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-          AMA Sessions
+          AMA (Ask Me Anything) Sessions
         </h1>
         <p className="mt-2 text-gray-400">
           Join live Q&A sessions with alumni and industry professionals
