@@ -1,6 +1,6 @@
 # 🌟 Zenith - GLS University Alumni Engagement Platform
 
-![Zenith Banner](https://imgur.com/a/8bxdLK9)
+![Zenith Banner](https://github.com/nioomeee/Zenith/blob/main/Zenith.png)
 
 ## 🚀 About Zenith
 Zenith is a cutting-edge **Alumni Engagement Platform** designed for **GLS University**, fostering meaningful connections, mentorship, and career growth. It features an intelligent **Smart Matching Algorithm** that links students with relevant alumni, **Flash Mentoring Requests**, **Warm Introductions** for job referrals, **Interest-based Groups**, and **AMA Sessions** to enhance the alumni-student networking experience.
