@@ -103,8 +103,8 @@ Zenith is **open-source** under the [MIT License](LICENSE).
 
 ## 📞 Contact
 💬 **Have questions? Reach out!**
-- 📨 Email: [your-email@example.com](mailto:your-email@example.com)
-- 🐦 Twitter: [@yourhandle](https://twitter.com/yourhandle)
-- 🌍 LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
+- 📨 Email: [vinay@gmail.com](vinay.th.24@gmail.com)
+- 🐦 X: [@code_with_vinay](https://x.com/code_with_vinay)
+- 🌍 LinkedIn: [Vinay-Thakor](https://www.linkedin.com/in/vinay-thakor/)
 
 ✨ _Made by Vinay and Niomi with❤️.✨_
